@@ -1,6 +1,8 @@
 //import 라이브러리
-import React from 'react';
+import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import '../../css/user.css';
 
@@ -8,12 +10,36 @@ const LoginForm = () => {
     /*---라우터 관련-------------------------------*/
 
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
+    const [id, setId] = useState('');
+    const [pw, setPw] = useState('');
+
+    const navigate = useNavigate();
 
     /*---일반 변수--------------------------------*/
 
     /*---일반 메소드 -----------------------------*/
 
     /*---훅(useEffect)+이벤트(handle)메소드-------*/
+    // 아이디 
+    const hadleId = (e) => {
+        setId(e.target.value);
+    }
+
+    // 비밀번호
+    const handlePw = (e) => {
+        setPw(e.target.value);
+    }
+
+    // 로그인 버튼 클릭
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        const userVo = {
+            id: id,
+            password: pw
+        }
+        console.log(userVo);
+    }
 
     return (
         <>
@@ -21,7 +47,7 @@ const LoginForm = () => {
 
             <div id="header" className="clearfix">
                 <h1>
-                <Link to="#" rel="noreferrer noopener">MySite</Link>
+                <Link to="/main" rel="noreferrer noopener">MySite</Link>
                 </h1>
 
                 {/* <!-- 
@@ -81,19 +107,19 @@ const LoginForm = () => {
 
                                 {/* <!-- 아이디 --> */}
                                 <div className="form-group">
-                                    <label className="form-text" for="input-uid">아이디</label> 
-                                    <input type="text" id="input-uid" name="" value="" placeholder="아이디를 입력하세요" />
+                                    <label className="form-text" htmlFor="input-uid">아이디</label> 
+                                    <input type="text" id="input-uid" name="" value={id} placeholder="아이디를 입력하세요" onChange={hadleId} />
                                 </div>
 
                                 {/* <!-- 비밀번호 --> */}
                                 <div className="form-group">
-                                    <label className="form-text" for="input-pass">비밀번호</label> 
-                                    <input type="text" id="input-pass" name="" value="" placeholder="비밀번호를 입력하세요"	/>
+                                    <label className="form-text" htmlFor="input-pass">비밀번호</label> 
+                                    <input type="text" id="input-pass" name="" value={pw} placeholder="비밀번호를 입력하세요" onChange={handlePw} />
                                 </div>
                                 
                                 {/* <!-- 버튼영역 --> */}
                                 <div className="button-area">
-                                    <button type="submit" id="btn-submit">로그인</button>
+                                    <button type="submit" id="btn-submit" onClick={handleLogin}>로그인</button>
                                 </div>
                                 
                             </form>
