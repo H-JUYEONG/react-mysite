@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import '../../css/user.css';
 
-const LoginForm = () => {
+const ModifyForm = () => {
     /*---라우터 관련-------------------------------*/
 
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
@@ -19,9 +19,9 @@ const LoginForm = () => {
         <>
             <div id="wrap">
 
-            <div id="header" className="clearfix">
+            <div id="header" class="clearfix">
                 <h1>
-                <Link to="#" rel="noreferrer noopener">MySite</Link>
+                    <Link to="#" rel="noreferrer noopener">MySite</Link>
                 </h1>
 
                 {/* <!-- 
@@ -63,12 +63,12 @@ const LoginForm = () => {
                 <div id="content">
                 
                     <div id="content-head">
-                        <h3>로그인</h3>
+                        <h3>회원정보</h3>
                         <div id="location">
                             <ul>
                                 <li>홈</li>
                                 <li>회원</li>
-                                <li className="last">로그인</li>
+                                <li className="last">회원정보</li>
                             </ul>
                         </div>
                         <div className="clear"></div>
@@ -76,34 +76,54 @@ const LoginForm = () => {
                     {/* <!-- //content-head --> */}
 
                     <div id="user">
-                        <div id="loginForm">
+                        <div id="modifyForm">
                             <form action="" method="">
 
                                 {/* <!-- 아이디 --> */}
                                 <div className="form-group">
                                     <label className="form-text" for="input-uid">아이디</label> 
-                                    <input type="text" id="input-uid" name="" value="" placeholder="아이디를 입력하세요" />
+                                    <span className="text-large bold">userid</span>
                                 </div>
 
                                 {/* <!-- 비밀번호 --> */}
                                 <div className="form-group">
-                                    <label className="form-text" for="input-pass">비밀번호</label> 
+                                    <label className="form-text" for="input-pass">패스워드</label> 
                                     <input type="text" id="input-pass" name="" value="" placeholder="비밀번호를 입력하세요"	/>
                                 </div>
-                                
+
+                                {/* <!-- 이메일 --> */}
+                                <div className="form-group">
+                                    <label className="form-text" for="input-name">이름</label> 
+                                    <input type="text" id="input-name" name="" value="" placeholder="이름을 입력하세요" />
+                                </div>
+
+                                {/* <!-- //성별 --> */}
+                                <div className="form-group">
+                                    <span className="form-text">성별</span> 
+                                    
+                                    <label for="rdo-male">남</label> 
+                                    <input type="radio" id="rdo-male" name="" value="" /> 
+                                    
+                                    <label for="rdo-female">여</label> 
+                                    <input type="radio" id="rdo-female" name="" value="" /> 
+
+                                </div>
+
                                 {/* <!-- 버튼영역 --> */}
                                 <div className="button-area">
-                                    <button type="submit" id="btn-submit">로그인</button>
+                                    <button type="submit" id="btn-submit">회원정보수정</button>
                                 </div>
                                 
                             </form>
+                        
+                        
                         </div>
-                        {/* <!-- //loginForm --> */}
+                        {/* <!-- //modifyForm --> */}
                     </div>
                     {/* <!-- //user --> */}
                 </div>
                 {/* <!-- //content  --> */}
-                
+
             </div>
             {/* <!-- //container  --> */}
 
@@ -118,4 +138,4 @@ const LoginForm = () => {
     );
 }
 
-export default LoginForm;
+export default ModifyForm;
