@@ -35,11 +35,45 @@ const LoginForm = () => {
     const handleLogin = (e) => {
         e.preventDefault();
 
+        // 데이터 모으기 
         const userVo = {
             id: id,
             password: pw
         }
         console.log(userVo);
+
+        // 전송
+        axios({
+            method: 'post', 			// put, post, delete                   
+            url: 'http://localhost:9000/api/users/login',
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            data: userVo,
+        
+            responseType: 'json' //수신타입
+          }).then(response => {
+            console.log(response); //수신데이타
+            console.log(response.data); //수신데이타
+            console.log(response.data.apiData); //수신데이타
+        
+            // 헤더에서 토큰 꺼내기
+            const token = response.headers['authorization'].split(' ')[1];
+            console.log(token);
+
+            // 로컬스토리지에 토큰 저장
+            localStorage.setItem("token", token); // "token"이라는 이름으로 token을 저장
+            // 로컬스토리지에 authUser 저장
+            localStorage.setItem("authUser", JSON.stringify(response.data.apiData));
+
+            if(response.data.apiData !== null) {
+              //리다이렉트
+              navigate("/main");
+            } else {
+              alert("로그인 실패");
+            }
+        
+          }).catch(error => {
+            console.log(error);
+        });
     }
 
     return (
@@ -104,7 +138,7 @@ const LoginForm = () => {
 
                     <div id="user">
                         <div id="loginForm">
-                            <form action="" method="">
+                            <form action="" method="" onSubmit={handleLogin}>
 
                                 {/* <!-- 아이디 --> */}
                                 <div className="form-group">
@@ -120,7 +154,7 @@ const LoginForm = () => {
                                 
                                 {/* <!-- 버튼영역 --> */}
                                 <div className="button-area">
-                                    <button type="submit" id="btn-submit" onClick={handleLogin}>로그인</button>
+                                    <button type="submit" id="btn-submit">로그인</button>
                                 </div>
                                 
                             </form>

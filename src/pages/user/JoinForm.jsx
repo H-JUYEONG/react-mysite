@@ -70,7 +70,7 @@ const JoinForm = () => {
               //리다이렉트
               navigate("/joinok");
             } else {
-              alert("등록 실패");
+              alert("회원가입 실패");
             }
         
           }).catch(error => {
