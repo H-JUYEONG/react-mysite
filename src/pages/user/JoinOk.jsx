@@ -80,7 +80,7 @@ const JoinOk = () => {
                                 <p className="text-large bold">
                                     회원가입을 축하합니다.<br/>
                                     <br/>
-                                    <Link to="#" rel="noreferrer noopener">[로그인하기]</Link>
+                                    <Link to="/loginform" rel="noreferrer noopener">[로그인하기]</Link>
                                 </p>
                                     
                             </div>

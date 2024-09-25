@@ -1,6 +1,8 @@
 //import 라이브러리
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import '../../css/user.css';
 
@@ -13,6 +15,8 @@ const JoinForm = () => {
     const [pw, setPw] = useState('');
     const [name, setName] = useState('');
     const [gender, setGender] = useState('');
+
+    const navigate = useNavigate();
 
     /*---일반 변수--------------------------------*/
 
@@ -41,15 +45,37 @@ const JoinForm = () => {
 
     // 회원가입 버튼 클릭했을때
     const handleJoin = (e) => {
-        console.log("클릭");
         e.preventDefault();
+
         const userVo = {
             id: id,
-            pw: pw,
+            password: pw,
             name: name,
             gender: gender
         }
         console.log(userVo);
+
+        axios({
+            method: 'post', 			// put, post, delete                   
+            url: 'http://localhost:9000/api/users',
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            data: userVo,
+        
+            responseType: 'json' //수신타입
+          }).then(response => {
+            console.log(response); //수신데이타
+            console.log(response.data); //수신데이타
+        
+            if(response.data === 1) {
+              //리다이렉트
+              navigate("/joinok");
+            } else {
+              alert("등록 실패");
+            }
+        
+          }).catch(error => {
+            console.log(error);
+        });
     }
 
     return (
@@ -114,7 +140,7 @@ const JoinForm = () => {
 
                     <div id="user">
                         <div id="joinForm">
-                            <form action="" method="" onSubmit={handleJoin}>
+                            <form action="" method="">
 
                                 {/* <!-- 아이디 --> */}
                                 <div className="form-group">
@@ -157,7 +183,7 @@ const JoinForm = () => {
                                 
                                 {/* <!-- 버튼영역 --> */}
                                 <div className="button-area">
-                                    <button type="submit" id="btn-submit">회원가입</button>
+                                    <button type="submit" id="btn-submit" onClick={handleJoin}>회원가입</button>
                                 </div>
                                 
                             </form>
