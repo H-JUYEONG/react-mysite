@@ -10,11 +10,11 @@ import Footer from '../include/Footer';
 const DeleteForm = () => {
 
     /*---라우터 관련-------------------------------*/
-   // const {no} = useParams();
-    //const navigate = useNavigate();
+    const {no} = useParams();
+    const navigate = useNavigate();
     
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
-    //const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('');
     
     /*---일반 변수--------------------------------*/
     
@@ -22,36 +22,36 @@ const DeleteForm = () => {
     
     /*---훅(useEffect)+이벤트(handle)메소드-------*/
     // 패스워드
-    // const handelPssword = (e) => {
-    //     setPassword(e.target.value);
-    // }
+    const handelPssword = (e) => {
+        setPassword(e.target.value);
+    }
 
-    // const handleDel = (e) => {
-    //     e.preventDefault();
+    const handleDel = (e) => {
+        e.preventDefault();
 
-    //     let guestVo = {
-    //         password: password
-    //     }
-    //     console.log(guestVo);
+        let guestVo = {
+            password: password
+        }
+        console.log(guestVo);
 
-    //     axios({
-    //         method: 'delete',
-    //         url: `http://localhost:9000/api/guests/${no}`,
+        axios({
+            method: 'delete',
+            url: `http://localhost:9000/api/guests/${no}`,
 
-    //         headers: { "Content-Type": "application/json; charset=utf-8" },
-    //         data: guestVo,
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            data: guestVo,
 
-    //         responseType: 'json'
-    //     }).then(response => {
-    //         console.log(response);
-    //         if(response.data.result === 'success'){
-    //             navigate('/list');
-    //         }else{
-    //             alert('비밀번호가 일치하지 않습니다.');
-    //         }
-    //     });
+            responseType: 'json'
+        }).then(response => {
+            console.log(response);
+            if(response.data.result === 'success'){
+                navigate('/guestbooklist');
+            }else{
+                alert('비밀번호가 일치하지 않습니다.');
+            }
+        });
 
-    // }
+    }
     
     return (
         <>
@@ -85,7 +85,7 @@ const DeleteForm = () => {
                         {/* <!-- //content-head --> */}
 
                         <div id="guestbook">
-                            <form action="" method="">
+                            <form action="" method="" onSubmit={handleDel}>
                                 <table id="guestDelete">
                                     <colgroup>
                                         <col style={{width: '10%'}}/>
@@ -93,15 +93,15 @@ const DeleteForm = () => {
                                         <col style={{width: '25%'}}/>
                                         <col style={{width: '25%'}}/>
                                     </colgroup>
-                                    <tr>
-                                        <td>비밀번호</td>
-                                        <td><input type="password" name="pass"/></td>
-                                        <td className="text-left"><button type="submit">삭제</button></td>
-                                        <td><Link to="#" className="btn_s" rel="noreferrer noopener">[메인으로 돌아가기]</Link></td>
-                                    </tr>
+                                    <tbody>
+                                        <tr>
+                                            <td>비밀번호</td>
+                                            <td><input type="password" name="pass" value={password} onChange={handelPssword}/></td>
+                                            <td className="text-left"><button type="submit">삭제</button></td>
+                                            <td><Link to="/" className="btn_s" rel="noreferrer noopener">[메인으로 돌아가기]</Link></td>
+                                        </tr>
+                                    </tbody>
                                 </table>
-                                <input type='hidden' name="" value=""/>
-                                <input type='hidden' name="" value=""/>
                             </form>
                             
                         </div>

@@ -25,15 +25,17 @@ const ItemGuest = (props) => {
                         <col style={{width: '40%'}} />
                         <col style={{width: '10%'}}/>
                     </colgroup>
-                    <tr>
-                        <td>{guest.no}</td>
-                        <td>{guest.name}</td>
-                        <td>{guest.regDate}</td>
-                        <td><Link to="#" className="btn_s" rel="noreferrer noopener">[삭제]</Link></td>
+                    <tbody>
+                        <tr>
+                            <td>{guest.no}</td>
+                            <td>{guest.name}</td>
+                            <td>{guest.regDate}</td>
+                            <td><Link to={`/deleteform/${guest.no}`} className="btn_s" rel="noreferrer noopener">[삭제]</Link></td>
                         </tr>
                         <tr>
-                            <td colSpan="4" className="text-left">방명록 글입니다. 방명록 글입니다.</td>
-                    </tr>
+                            <td colSpan="4" className="text-left">{guest.content}</td>
+                        </tr>
+                    </tbody>
             </table>
             {/* <!-- //guestRead --> */}
         </>

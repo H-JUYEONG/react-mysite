@@ -147,7 +147,6 @@ const GuestbookList = () => {
                                             <td colSpan="4" className="text-center"><button type="submit">등록</button></td>
                                         </tr>
                                     </tbody>
-                                    
                                 </table>
                                 {/* <!-- //guestWrite --> */}
                                 <input type="hidden" name="action" value="add"/>
