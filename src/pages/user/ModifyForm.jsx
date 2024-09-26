@@ -102,7 +102,7 @@ const ModifyForm = () => {
                 // 로컬스토리지의 authUser의 이름을 변경
                 const authUser = response.data.apiData;
                 localStorage.setItem("authUser", JSON.stringify(authUser));
-                navigate("/main");
+                navigate("/");
 
               } else {
                 alert("회원정보 수정 실패");

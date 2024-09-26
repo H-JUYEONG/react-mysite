@@ -1,7 +1,10 @@
 //import 라이브러리
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
+// import 컴포넌트
+import ItemBoard from './ItemBoard';
 import '../../css/board.css';
 import Header from '../include/Header';
 import Footer from '../include/Footer';
@@ -11,12 +14,68 @@ const BoardList = () => {
     /*---라우터 관련-------------------------------*/
     
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
+    const [boardList, setBoardList] = useState([]);
 
     /*---일반 변수--------------------------------*/
     
     /*---일반 메소드 -----------------------------*/
+    const getBoardList = () => {
+        axios({
+			method: 'get', 			// put, post, delete                   
+			url: 'http://localhost:9000/api/boards',
+		
+			responseType: 'json' //수신타입
+		}).then(response => {
+			console.log(response); //수신데이터
+			setBoardList(response.data.apiData);
+
+		}).catch(error => {
+			console.log(error);
+		});	
+    }
     
     /*---훅(useEffect)+이벤트(handle)메소드-------*/
+        // 마운트 되었을때
+	useEffect(() => {
+		console.log("마운트 됐어요");
+
+		// 서버에서 데이터 가져오기 그리기
+		getBoardList();
+
+	}, []);
+
+    // 삭제 버튼 클릭했을때
+    const handleDel = (no) => {
+		console.log("삭제버튼 클릭");
+
+		axios({
+			method: 'delete', 			// put, post, delete                   
+			url: `http://localhost:9000/api/boards/${no}`,
+		
+			responseType: 'json' //수신타입
+		}).then(response => {
+			console.log(response); //수신데이터
+			console.log(response.data);
+
+			if(response.data.result === 'success') {
+
+				// 리스트(배열) boardList에서 방금 삭제한 값만 제거된 새로운 배열
+				// 리턴이 있을때만 {} 를 ()로 바꾸고 retrun을 생략할 수 있음
+				let newArray = boardList.filter((board) => (
+					board.no !== no
+				));
+
+				setBoardList(newArray);
+
+			} else {
+				alert(response.data.message);
+			}
+
+		}).catch(error => {
+			console.log(error);
+		});
+		
+	};
     
     return (
         <>
@@ -58,7 +117,7 @@ const BoardList = () => {
                                     <button type="submit" id="btn_search">검색</button>
                                 </div>
                             </form>
-                            <table >
+                            <table>
                                 <thead>
                                     <tr>
                                         <th>번호</th>
@@ -70,46 +129,11 @@ const BoardList = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>123</td>
-                                        <td className="text-left"><Link to="#" rel="noreferrer noopener">게시판 게시글입니다.</Link></td>
-                                        <td>정우성</td>
-                                        <td>1232</td>
-                                        <td>2020-12-23</td>
-                                        <td><Link to="#" rel="noreferrer noopener">[삭제]</Link></td>
-                                    </tr>
-                                    <tr>
-                                        <td>123</td>
-                                        <td className="text-left"><Link to="#" rel="noreferrer noopener">게시판 게시글입니다.</Link></td>
-                                        <td>정우성</td>
-                                        <td>1232</td>
-                                        <td>2020-12-23</td>
-                                        <td><Link to="#" rel="noreferrer noopener">[삭제]</Link></td>
-                                    </tr>
-                                    <tr>
-                                        <td>123</td>
-                                        <td className="text-left"><Link to="#" rel="noreferrer noopener">게시판 게시글입니다.</Link></td>
-                                        <td>정우성</td>
-                                        <td>1232</td>
-                                        <td>2020-12-23</td>
-                                        <td><Link to="#" rel="noreferrer noopener">[삭제]</Link></td>
-                                    </tr>
-                                    <tr>
-                                        <td>123</td>
-                                        <td className="text-left"><Link to="#" rel="noreferrer noopener">게시판 게시글입니다.</Link></td>
-                                        <td>정우성</td>
-                                        <td>1232</td>
-                                        <td>2020-12-23</td>
-                                        <td><Link to="#" rel="noreferrer noopener">[삭제]</Link></td>
-                                    </tr>
-                                    <tr className="last">
-                                        <td>123</td>
-                                        <td className="text-left"><Link to="#" rel="noreferrer noopener">게시판 게시글입니다.</Link></td>
-                                        <td>정우성</td>
-                                        <td>1232</td>
-                                        <td>2020-12-23</td>
-                                        <td><Link to="#" rel="noreferrer noopener">[삭제]</Link></td>
-                                    </tr>
+                                    {boardList.map((boardVo) => {
+                                    return (
+                                        <ItemBoard key={boardVo.no} board={boardVo} delBoard={handleDel}/>
+                                    )
+                                    })}
                                 </tbody>
                             </table>
                 

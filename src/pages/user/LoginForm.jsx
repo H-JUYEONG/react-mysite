@@ -70,7 +70,7 @@ const LoginForm = () => {
 
             if(response.data.apiData !== null) {
               //리다이렉트
-              navigate("/main");
+              navigate("/");
             } else {
               alert("로그인 실패");
             }

@@ -246,6 +246,9 @@
 	float: right;
 }
 
-
-
-
+/* 삭제 버튼 */
+#boards .btn_del {
+	border: none;
+    background: none;
+	cursor: pointer;
+}

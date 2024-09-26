@@ -18,8 +18,8 @@ import GuestDeleteForm from './pages/guestbook/GuestDeleteForm';
 // board
 import BoardList from './pages/board/BoardList';
 import ItemBoard from './pages/board/ItemBoard';
-import BoardModifyForm from './pages/board/BoardModifyForm';
 import BoardRead from './pages/board/BoardRead';
+import BoardModifyForm from './pages/board/BoardModifyForm';
 import BoardWriteForm from './pages/board/BoardWriteForm';
 
 
@@ -46,8 +46,8 @@ function App() {
 
           <Route path='/boardlist' element={<BoardList />} />
           <Route path='/itemboard' element={<ItemBoard />} />
+          <Route path='/boardread/:no' element={<BoardRead />} />
           <Route path='/boardmodifyform' element={<BoardModifyForm />} />
-          <Route path='/boardread' element={<BoardRead />} />
           <Route path='/boardwriteform' element={<BoardWriteForm />} />
           
         </Routes>
