@@ -2,13 +2,14 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
+import '../../css/guestbook.css';
 
 const ItemGuest = (props) => {
 
     /*---라우터 관련-------------------------------*/
     
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
-    const {guest, delGuest} = props;
+    const {guest} = props;
     
     /*---일반 변수--------------------------------*/
     
@@ -30,7 +31,7 @@ const ItemGuest = (props) => {
                             <td>{guest.no}</td>
                             <td>{guest.name}</td>
                             <td>{guest.regDate}</td>
-                            <td><Link to={`/deleteform/${guest.no}`} className="btn_s" rel="noreferrer noopener">[삭제]</Link></td>
+                            <td><Link to={`/guestdeleteform/${guest.no}`} className="btn_s" rel="noreferrer noopener">[삭제]</Link></td>
                         </tr>
                         <tr>
                             <td colSpan="4" className="text-left">{guest.content}</td>
