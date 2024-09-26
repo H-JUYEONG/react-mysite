@@ -33,7 +33,7 @@ const Header = () => {
         <>
             <div id="header" className="clearfix">
 			        <h1>
-                        <Link to="/main" rel="noreferrer noopener">MySite</Link>
+                        <Link to="/" rel="noreferrer noopener">MySite</Link>
 			        </h1>
 
                     {
