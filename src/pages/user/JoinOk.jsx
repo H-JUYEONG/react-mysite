@@ -3,6 +3,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import '../../css/user.css';
+import Header from '../include/Header';
+import Footer from '../include/Footer';
 
 const JoinOk = () => {
     /*---라우터 관련-------------------------------*/
@@ -19,34 +21,8 @@ const JoinOk = () => {
         <>
             <div id="wrap">
 
-            <div id="header" className="clearfix">
-			        <h1>
-                        <Link to="#" rel="noreferrer noopener">MySite</Link>
-			        </h1>
-
-                    {/* <!-- 
-                    <ul>
-                        <li>황일영 님 안녕하세요^^</li>
-                        <li><Link to="#" className="btn_s" rel="noreferrer noopener">로그아웃</Link></li>
-                        <li><Link to="#" className="btn_s" rel="noreferrer noopener">회원정보수정</Link></li>
-			        </ul>
-			        -->	 */}
-                    <ul>
-                        <li><Link to="#" className="btn_s" rel="noreferrer noopener">로그인</Link></li>
-                        <li><Link to="#" className="btn_s" rel="noreferrer noopener">회원가입</Link></li>
-                    </ul>	
-		        </div>
-		        {/* <!-- //header --> */}
-
-                <div id="nav">
-                    <ul className="clearfix">
-                        <li><Link to="#" rel="noreferrer noopener">입사지원서</Link></li>
-                        <li><Link to="#" rel="noreferrer noopener">게시판</Link></li>
-                        <li><Link to="#" rel="noreferrer noopener">갤러리</Link></li>
-                        <li><Link to="#" rel="noreferrer noopener">방명록</Link></li>
-                    </ul>
-                </div>
-                {/* <!-- //nav --> */}
+            <Header/>
+            {/* <!-- //header + nav --> */}
 
                 <div id="container" className="clearfix">
                     <div id="aside">
@@ -93,9 +69,7 @@ const JoinOk = () => {
                 {/* <!-- //container  --> */}
 
 
-                <div id="footer">
-                    Copyright ⓒ 2024 황주영. All right reserved
-                </div>
+                <Footer/>
                 {/* <!-- //footer --> */}
 
             </div>

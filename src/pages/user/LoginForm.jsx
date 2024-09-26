@@ -1,10 +1,11 @@
 //import 라이브러리
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import '../../css/user.css';
+import Header from '../include/Header';
+import Footer from '../include/Footer';
 
 const LoginForm = () => {
     
@@ -61,8 +62,11 @@ const LoginForm = () => {
 
             // 로컬스토리지에 토큰 저장
             localStorage.setItem("token", token); // "token"이라는 이름으로 token을 저장
+
             // 로컬스토리지에 authUser 저장
-            localStorage.setItem("authUser", JSON.stringify(response.data.apiData));
+            /* 자바스크립트의 객체나 배열은 직접적으로 localStorage에 저장할 수 없다.
+            JSON.stringify() 메서드를 사용하면 객체를 JSON 문자열로 변환하여 저장할 수 있습니다. */
+            localStorage.setItem("authUser", JSON.stringify(response.data.apiData)); 
 
             if(response.data.apiData !== null) {
               //리다이렉트
@@ -80,35 +84,8 @@ const LoginForm = () => {
         <>
             <div id="wrap">
 
-            <div id="header" className="clearfix">
-                <h1>
-                <Link to="/main" rel="noreferrer noopener">MySite</Link>
-                </h1>
-
-                {/* <!-- 
-                <ul>
-                    <li>황일영 님 안녕하세요^^</li>
-                    <li><Link to="#" className="btn_s" rel="noreferrer noopener">로그아웃</Link></li>
-                    <li><Link to="#" className="btn_s" rel="noreferrer noopener">회원정보수정</Link></li>
-                </ul>
-                -->	 */}
-                <ul>
-                    <li><Link to="#" className="btn_s" rel="noreferrer noopener">로그인</Link></li>
-                    <li><Link to="#" className="btn_s" rel="noreferrer noopener">회원가입</Link></li>
-                </ul>
-                
-            </div>
-            {/* <!-- //header --> */}
-
-            <div id="nav">
-                <ul className="clearfix">
-                    <li><Link to="#" rel="noreferrer noopener">입사지원서</Link></li>
-                    <li><Link to="#" rel="noreferrer noopener">게시판</Link></li>
-                    <li><Link to="#" rel="noreferrer noopener">갤러리</Link></li>
-                    <li><Link to="#" rel="noreferrer noopener">방명록</Link></li>
-                </ul>
-            </div>
-            {/* <!-- //nav --> */}
+            <Header/>
+            {/* <!-- //header + nav --> */}
 
             <div id="container" className="clearfix">
                 <div id="aside">
@@ -168,9 +145,7 @@ const LoginForm = () => {
             </div>
             {/* <!-- //container  --> */}
 
-            <div id="footer">
-                Copyright ⓒ 2024 황주영. All right reserved
-            </div>
+            <Footer/>
             {/* <!-- //footer --> */}
 
             </div>
