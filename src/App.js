@@ -22,6 +22,9 @@ import BoardRead from './pages/board/BoardRead';
 import BoardModifyForm from './pages/board/BoardModifyForm';
 import BoardWriteForm from './pages/board/BoardWriteForm';
 
+// attch
+import Form from './pages/attach/Form';
+import Result from './pages/attach/Result';
 
 // css 전체 공통 적용
 import './css/mysite.css';
@@ -49,6 +52,9 @@ function App() {
           <Route path='/boardread/:no' element={<BoardRead />} />
           <Route path='/boardmodifyform' element={<BoardModifyForm />} />
           <Route path='/boardwriteform' element={<BoardWriteForm />} />
+
+          <Route path='/form' element={<Form />} />
+          <Route path='/result' element={<Result />} />
           
         </Routes>
       </BrowserRouter>
