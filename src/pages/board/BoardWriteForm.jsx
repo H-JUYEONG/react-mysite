@@ -1,6 +1,7 @@
 //import 라이브러리
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import '../../css/board.css';
 import Header from '../include/Header';
@@ -11,12 +12,62 @@ const BoardWriteForm = () => {
     /*---라우터 관련-------------------------------*/
     
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+
+    const navigate = useNavigate();
     
     /*---일반 변수--------------------------------*/
-    
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
+
     /*---일반 메소드 -----------------------------*/
     
     /*---훅(useEffect)+이벤트(handle)메소드-------*/
+    const handleTitle = (e) => {
+        setTitle(e.target.value);
+    }
+
+    const handleContent = (e) => {
+        setContent(e.target.value);
+    }
+    
+    const handleAdd = (e) => {
+        e.preventDefault();
+
+        const boardVo = {
+            userNo: authUser.no,
+            title: title,
+            content: content
+        }
+        console.log(boardVo);
+
+        axios({
+            method: 'post', 			// put, post, delete                   
+            url: 'http://localhost:9000/api/boards',
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            
+            data: boardVo,
+        
+            responseType: 'json' //수신타입
+          }).then(response => {
+            console.log(response); //수신데이타
+            console.log(response.data); //수신데이타
+        
+            if(response.data.result === 'success') {
+                //리다이렉트
+              navigate("/boardlist");
+            } else {
+                alert("등록 실패");
+            }
+              
+           
+        
+          }).catch(error => {
+            console.log(error);
+        });
+
+
+    }
     
     return (
         <>
@@ -52,19 +103,19 @@ const BoardWriteForm = () => {
 
                     <div id="board">
                         <div id="writeForm">
-                            <form action="#" method="get">
+                            <form action="#" method="get" onSubmit={handleAdd}>
                                 {/* <!-- 제목 --> */}
                                 <div className="form-group">
                                     <label className="form-text" htmlFor="txt-title">제목</label>
-                                    <input type="text" id="txt-title" name="" value="" placeholder="제목을 입력해 주세요"/>
+                                    <input type="text" id="txt-title" name="" value={title} placeholder="제목을 입력해 주세요" onChange={handleTitle}/>
                                 </div>
                             
                                 {/* <!-- 내용 --> */}
                                 <div className="form-group">
-                                    <textarea id="txt-content"></textarea>
+                                    <textarea id="txt-content" value={content} onChange={handleContent}></textarea>
                                 </div>
                                 
-                                <Link to="#" id="btn_cancel" rel="noreferrer noopener">취소</Link>
+                                <Link to="/boardlist" id="btn_cancel" rel="noreferrer noopener">취소</Link>
                                 <button id="btn_add" type="submit" >등록</button>
                                 
                             </form>

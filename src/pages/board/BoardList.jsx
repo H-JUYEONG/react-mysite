@@ -157,7 +157,7 @@ const BoardList = () => {
                                 <div className="clear"></div>
                             </div>
                             
-                            <Link to="#" id="btn_write" rel="noreferrer noopener">글쓰기</Link>
+                            <Link to="/BoardWriteForm" id="btn_write" rel="noreferrer noopener">글쓰기</Link>
                         
                         </div>
                         {/* <!-- //list --> */}

@@ -13,18 +13,18 @@ const BoardRead = () => {
     /*---라우터 관련-------------------------------*/
     
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
+    // board 번호 파라미터로 가져오기
     const [searchParams] = useSearchParams();
     const no = searchParams.get('no');
-    //console.log(no);
 
-    const [boardNo, setBoardNo] = useState();
-    const [name, setName] = useState();
-    const [hit, setHit] = useState();
-    const [regDate, setRegDate] = useState();
-    const [title, setTitle] = useState();
-    const [content, setContet] = useState();
+    const [userNo, setUserNo] = useState('');
+    const [name, setName] = useState('');
+    const [hit, setHit] = useState('');
+    const [regDate, setRegDate] = useState('');
+    const [title, setTitle] = useState('');
+    const [content, setContet] = useState('');
 
-    console.log(boardNo);
+    console.log(userNo);
     
     /*---일반 변수--------------------------------*/
     const authUser = JSON.parse(localStorage.getItem('authUser'));
@@ -43,14 +43,14 @@ const BoardRead = () => {
             responseType: 'json' //수신타입
           }).then(response => {
             console.log(response); //수신데이타
-            console.log(response.data); //수신데이타
+            console.log(response.data); //수 신데이타
             console.log(response.data.apiData); //수신데이타
 
             if(response.data.result === 'success') { 
                 // 성공로직
-                setBoardNo(response.data.apiData.no);
+                setUserNo(response.data.apiData.userNo);
                 setName(response.data.apiData.name);
-                setHit(response.data.apiData.title);
+                setHit(response.data.apiData.hit);
                 setRegDate(response.data.apiData.regDate);
                 setTitle(response.data.apiData.title);
                 setContet(response.data.apiData.content);
@@ -131,8 +131,9 @@ const BoardRead = () => {
                                             {content}<br/>
                                         </span>
                                     </div>
-                                    {authUser && authUser.no === boardNo}
-                                    <Link to="#" id="btn_modify" rel="noreferrer noopener">수정</Link>
+                                    {authUser && authUser.no === userNo ? (
+                                    <Link to={`/boardmodifyform?no=${no}`} id="btn_modify" rel="noreferrer noopener">수정</Link>
+                                    ) : null}
                                     <Link to="/boardlist" id="btn_modify" rel="noreferrer noopener">목록</Link>
                                 </form>
                                 {/* <!-- //form --> */}
