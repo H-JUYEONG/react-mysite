@@ -22,12 +22,12 @@ const ItemBoard = (props) => {
         <>
             <tr id="boards">
                 <td>{board.no}</td>
-                <td className="text-left"><Link to={`/boardread/${board.no}`} rel="noreferrer noopener">{board.title}</Link></td>
+                <td className="text-left"><Link to={`/boardread?no=${board.no}`} rel="noreferrer noopener">{board.title}</Link></td>
                 <td>{board.name}</td>
                 <td>{board.hit}</td>
                 <td>{board.regDate}</td>
                 <td>
-                {authUser.no === board.userNo ? ( 
+                {authUser && authUser.no === board.userNo ? ( 
                 <button className="btn_del" type="button" onClick={() => delBoard(board.no)}>[삭제]</button>
                 ) : null}
                 </td>
