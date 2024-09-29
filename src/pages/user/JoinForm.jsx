@@ -17,6 +17,13 @@ const JoinForm = () => {
     const [name, setName] = useState('');
     const [gender, setGender] = useState('');
 
+    // id 중복체크 상태
+    const [idCheck, setIdCheck] = useState(''); // 중복 여부 상태
+    const [message, setMessage] = useState(''); // 메시지 상태
+    
+    // 약관동의 체크
+    const [agreedCheck, setAgreedCheck] = useState(false); // 체크박스 상태 관리
+
     const navigate = useNavigate();
 
     /*---일반 변수--------------------------------*/
@@ -44,9 +51,72 @@ const JoinForm = () => {
         setGender(e.target.value);
     }
 
+    // 아이디 중복체크
+    const handleIdCheck = (e) => {
+
+        axios({
+			method: 'get', 			// put, post, delete                   
+			url: 'http://localhost:9000/api/users/idcheck',
+
+            params: { id: id },
+		
+			responseType: 'json' //수신타입
+		}).then(response => {
+			console.log(response); //수신데이터
+
+            if(response.data.result === 'success') {
+                setMessage("사용 가능한 아이디입니다.");
+                setIdCheck(false); // 중복 아님
+
+              } else {
+                setMessage("사용할 수 없는 아이디입니다.");
+                setIdCheck(true); // 중복
+              }
+
+		}).catch(error => {
+			console.log(error);
+		});
+
+    }
+
+    // 약관동의 체크
+    const handleAgreedCheck = (e) => {
+        setAgreedCheck(!agreedCheck);
+    }
+
     // 회원가입 버튼 클릭했을때
     const handleJoin = (e) => {
         e.preventDefault();
+
+         // 아이디 입력 체크
+        if (!id) {
+        alert("아이디를 입력해야 합니다.");
+        return;
+        }
+
+        // 비밀번호 입력 체크
+        if (!pw) {
+            alert("비밀번호를 입력해야 합니다.");
+            return;
+        }
+
+        // 이름 입력 체크
+        if (!name) {
+            alert("이름을 입력해야 합니다.");
+            return;
+        }
+
+        // 성별 입력 체크
+        if (!gender) {
+            alert("성별을 선택해야 합니다.");
+            return;
+        }
+
+        // 약관 동의 체크
+        if(!agreedCheck) {
+            alert("서비스 약관에 동의해야 합니다.");
+            return;
+        }
 
         const userVo = {
             id: id,
@@ -120,8 +190,9 @@ const JoinForm = () => {
                                 <div className="form-group">
                                     <label className="form-text" htmlFor="input-uid">아이디</label> 
                                     <input type="text" id="input-uid" name="" value={id} placeholder="아이디를 입력하세요" onChange={handleId}/>
-                                    <button type="button" id="">중복체크</button>
+                                    <button type="button" onClick={handleIdCheck}>중복체크</button>
                                 </div>
+                                <div id="idStatus" style={{ color: idCheck ? 'red' : 'blue' }}>{message}</div>
 
                                 {/* <!-- 비밀번호 --> */}
                                 <div className="form-group">
@@ -151,7 +222,7 @@ const JoinForm = () => {
                                 <div className="form-group">
                                     <span className="form-text">약관동의</span> 
                                     
-                                    <input type="checkbox" id="chk-agree" value="" name=""/>
+                                    <input type="checkbox" id="chk-agree" value="" name="" onChange={handleAgreedCheck} />
                                     <label htmlFor="chk-agree">서비스 약관에 동의합니다.</label> 
                                 </div>
                                 
