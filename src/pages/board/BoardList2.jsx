@@ -1,5 +1,5 @@
 //import 라이브러리
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -12,28 +12,36 @@ import Footer from '../include/Footer';
 const BoardList2 = () => {
 
     /*---라우터 관련-------------------------------*/
-    
+
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
     const [boardList, setBoardList] = useState([]);
+    const [keyword, setKeyword] = useState('');
+    const [crtpage, setCrtpage] = useState();
+    const [prev, setPrev] = useState('');
+    const [startPageBtnNo, setStartPageBtnNo] = useState('');
+    const [endPageBtnNo, setEndPageBtnNo] = useState('');
+    const [next, setNext] = useState('');
 
     /*---일반 변수--------------------------------*/
-    
+  
     /*---일반 메소드 -----------------------------*/
-    const getBoardList = () => {
+    const getBoardList = useCallback(() => {
         axios({
-			method: 'get', 			// put, post, delete                   
-			url: `${process.env.REACT_APP_API_URL}/api/boards`,
-		
-			responseType: 'json' //수신타입
-		}).then(response => {
-			console.log(response); //수신데이터
-			setBoardList(response.data.apiData);
+            method: 'get',
+            url: `${process.env.REACT_APP_API_URL}/api/boards2/list`,
+            params: { keyword: keyword, crtpage: crtpage },
+            responseType: 'json',
+        }).then(response => {
+            setBoardList(response.data.apiData.tboardList);
+            setPrev(response.data.apiData.prev);
+            setStartPageBtnNo(response.data.apiData.startPageBtnNo);
+            setEndPageBtnNo(response.data.apiData.endPageBtnNo);
+            setNext(response.data.apiData.next);
+        }).catch(error => {
+            console.log(error);
+        });
+    }, [keyword, crtpage]);
 
-		}).catch(error => {
-			console.log(error);
-		});	
-    }
-    
     /*---훅(useEffect)+이벤트(handle)메소드-------*/
         // 마운트 되었을때
 	useEffect(() => {
@@ -43,6 +51,18 @@ const BoardList2 = () => {
 		getBoardList();
 
 	}, []);
+
+    // 검색 키워드 입력
+    const handleKeyword = (e) => {
+        setKeyword(e.target.value);
+    }
+
+    // 검색 버튼 클릭
+    const handleSearch = (e) => {
+        e.preventDefault();
+        getBoardList();	
+
+    }
 
     // 삭제 버튼 클릭했을때
     const handleDel = (no) => {
@@ -76,6 +96,23 @@ const BoardList2 = () => {
 		});
 		
 	};
+
+    // 페이지 클릭
+    const handleCrtpage = (e) => {
+        setCrtpage(e.target.value);
+        console.log('숫자 선택');
+        console.log(e.target.value);
+    }
+
+    // 페이징 숫자 반복
+    const arrLoop = () => {
+        const newArray = [];
+        for(let i = startPageBtnNo; i <= endPageBtnNo; i++) {
+             newArray.push(<button key={i} value={i} onClick={handleCrtpage}>{i}</button>);
+        }
+        //console.log(newArray);
+        return newArray;
+    }
     
     return (
         <>
@@ -111,9 +148,9 @@ const BoardList2 = () => {
 
                     <div id="board">
                         <div id="list">
-                            <form action="" method="">
+                            <form action="" method="" onSubmit={handleSearch}>
                                 <div className="form-group text-right">
-                                    <input type="text"/>
+                                    <input type="text" value={keyword} onChange={handleKeyword} />
                                     <button type="submit" id="btn_search">검색</button>
                                 </div>
                             </form>
@@ -138,22 +175,22 @@ const BoardList2 = () => {
                             </table>
                 
                             <div id="paging">
-                                <ul>
-                                    <li><Link to="#" rel="noreferrer noopener">◀</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">1</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">2</Link></li>
+                                <ul> 
+                                    {prev ? (<li><Link to={`/boardlist2?crtpage=${startPageBtnNo-1}&keyword=${keyword}`} rel="noreferrer noopener">◀</Link></li>) : null}
+                                    {arrLoop()}
+                                    
+                                    {/* <li><Link to="#" rel="noreferrer noopener">1</Link></li>
+                                    <li><Link to={`/boardlist2?crtpage=${crtpage}&keyword=${keyword}`} rel="noreferrer noopener">{crtpage}</Link></li>
                                     <li><Link to="#" rel="noreferrer noopener">2</Link></li>
                                     <li><Link to="#" rel="noreferrer noopener">4</Link></li>
-                                    <li className="active"><Link to="#" rel="noreferrer noopener">5</Link></li>
+                                    <li><Link to="#" rel="noreferrer noopener">5</Link></li>
                                     <li><Link to="#" rel="noreferrer noopener">6</Link></li>
                                     <li><Link to="#" rel="noreferrer noopener">7</Link></li>
                                     <li><Link to="#" rel="noreferrer noopener">8</Link></li>
                                     <li><Link to="#" rel="noreferrer noopener">9</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">10</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">▶</Link></li>
+                                    <li><Link to="#" rel="noreferrer noopener">10</Link></li> */}
+                                    {next ? (<li><Link to={`/boardlist2?crtpage=${endPageBtnNo+1}&keyword=${keyword}`} rel="noreferrer noopener">▶</Link></li>) : null}
                                 </ul>
-                                
-                                
                                 <div className="clear"></div>
                             </div>
                             
