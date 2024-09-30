@@ -36,7 +36,7 @@ const DeleteForm = () => {
 
         axios({
             method: 'delete',
-            url: `http://localhost:9000/api/guests/${no}`,
+            url: `${process.env.REACT_APP_API_URL}/api/guests/${no}`,
 
             headers: { "Content-Type": "application/json; charset=utf-8" },
             data: guestVo,

@@ -36,7 +36,7 @@ const BoardRead = () => {
 
         axios({
             method: 'get', 			// put, post, delete                   
-            url: `http://localhost:9000/api/boards/${no}`,
+            url: `${process.env.REACT_APP_API_URL}/api/boards/${no}`,
 
             params: { no: no },
 

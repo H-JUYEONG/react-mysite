@@ -43,7 +43,7 @@ const BoardWriteForm = () => {
 
         axios({
             method: 'post', 			// put, post, delete                   
-            url: 'http://localhost:9000/api/boards',
+            url: `${process.env.REACT_APP_API_URL}/api/boards`,
             headers: { "Content-Type": "application/json; charset=utf-8" },
             
             data: boardVo,

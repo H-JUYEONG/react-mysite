@@ -34,7 +34,7 @@ const BoardModifyForm = () => {
 
         axios({
             method: 'get', 			// put, post, delete                   
-            url: `http://localhost:9000/api/boards/modify/${no}`,
+            url: `${process.env.REACT_APP_API_URL}/api/boards/modify/${no}`,
 
             params: { no: no },
 
@@ -83,7 +83,7 @@ const BoardModifyForm = () => {
         
         axios({
             method: 'put', 		 	// put, post, delete                   
-            url: `http://localhost:9000/api/boards/${no}`,
+            url: `${process.env.REACT_APP_API_URL}/api/boards/${no}`,
 
             headers: { "Content-Type": "application/json; charset=utf-8" },
             

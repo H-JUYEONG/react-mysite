@@ -22,7 +22,7 @@ const BoardList = () => {
     const getBoardList = () => {
         axios({
 			method: 'get', 			// put, post, delete                   
-			url: 'http://localhost:9000/api/boards',
+			url: `${process.env.REACT_APP_API_URL}/api/boards`,
 		
 			responseType: 'json' //수신타입
 		}).then(response => {
@@ -50,7 +50,7 @@ const BoardList = () => {
 
 		axios({
 			method: 'delete', 			// put, post, delete                   
-			url: `http://localhost:9000/api/boards/${no}`,
+			url: `${process.env.REACT_APP_API_URL}/api/boards/${no}`,
 		
 			responseType: 'json' //수신타입
 		}).then(response => {

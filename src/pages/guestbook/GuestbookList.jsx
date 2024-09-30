@@ -23,7 +23,7 @@ const GuestbookList = () => {
     const getGuestList = () => {
         axios({
 			method: 'get', 			// put, post, delete                   
-			url: 'http://localhost:9000/api/guests',
+			url: `${process.env.REACT_APP_API_URL}/api/guests`,
 		
 			responseType: 'json' //수신타입
 		}).then(response => {
@@ -73,7 +73,7 @@ const GuestbookList = () => {
 
         axios({
             method: 'post', 			// put, post, delete                   
-            url: 'http://localhost:9000/api/guests',
+            url: `${process.env.REACT_APP_API_URL}/api/guests`,
             headers: { "Content-Type": "application/json; charset=utf-8" },
             data: guestVo,
         

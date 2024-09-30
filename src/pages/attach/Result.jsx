@@ -13,6 +13,7 @@ const Result = () => {
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
     const [searchParams] = useSearchParams();
     const saveName = searchParams.get('img');
+    console.log(saveName);
 
     /*---일반 변수--------------------------------*/
     
@@ -56,7 +57,7 @@ const Result = () => {
                     <div id="file">
                         
                             <div>
-                                <img id="resultImg" src={`http://localhost:9000/upload/${saveName}`} alt="프로필사진"/>
+                                <img id="resultImg" src={`${process.env.REACT_APP_API_URL}/upload/${saveName}`} alt="프로필사진"/>
                             </div>
                             <p>
                                 <Link to="/form" id="btnUpload" rel="noreferrer noopener">다시 업로드 하기</Link>

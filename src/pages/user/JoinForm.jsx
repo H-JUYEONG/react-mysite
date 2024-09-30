@@ -56,7 +56,7 @@ const JoinForm = () => {
 
         axios({
 			method: 'get', 			// put, post, delete                   
-			url: 'http://localhost:9000/api/users/idcheck',
+			url: `${process.env.REACT_APP_API_URL}/api/users/idcheck`,
 
             params: { id: id },
 		
@@ -128,7 +128,7 @@ const JoinForm = () => {
 
         axios({
             method: 'post', 			// put, post, delete                   
-            url: 'http://localhost:9000/api/users',
+            url: `${process.env.REACT_APP_API_URL}/api/users`,
             headers: { "Content-Type": "application/json; charset=utf-8" },
             data: userVo,
         

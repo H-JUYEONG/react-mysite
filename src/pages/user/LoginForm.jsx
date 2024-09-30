@@ -42,11 +42,12 @@ const LoginForm = () => {
             password: pw
         }
         console.log(userVo);
+        console.log(process.env.REACT_APP_API_URL);
 
         // 전송
         axios({
             method: 'post', 			// put, post, delete                   
-            url: 'http://localhost:9000/api/users/login',
+            url: `${process.env.REACT_APP_API_URL}/api/users/login`,
             headers: { "Content-Type": "application/json; charset=utf-8" },
             data: userVo,
         

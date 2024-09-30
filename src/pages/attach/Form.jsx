@@ -40,7 +40,7 @@ const Form = () => {
         // 서버로 전송
         axios({
             method: 'post', 			// put, post, delete                   
-            url: 'http://localhost:9000/api/attachs',
+            url: `${process.env.REACT_APP_API_URL}/api/attachs`,
         
             headers: { "Content-Type": "multipart/form-data" }, //첨부파일
             data: formData,           // 첨부파일  multipart방식
