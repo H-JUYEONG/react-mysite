@@ -47,11 +47,14 @@
 
 /* 게시판 페이징 */
 #board #list #paging {
-	margin: 0px auto;
+	margin: 10px auto;
 	width: 310px;
 }
 
-#board #list #paging ul {margin: 10px 5px 10px 5px;}
+#board #list #paging ul {
+	margin: 10px 5px 10px 5px;
+}
+
 #board #list #paging ul>li{
 	float: left;
 	margin: 0px 8px 0px 8px;
@@ -255,6 +258,22 @@
 
 /* 페이징 버튼 */
 #board #btn_page {
-	padding: 3px 3px;
+	box-sizing: border-box;
+	border: 1px solid #aeaeae;
+	border-radius: 3px;
+	padding: 3px 8px;
 	margin: 0px 3px;
+}
+
+#board #btn_page:hover {
+	box-sizing: border-box;
+	font-weight: bold;
+	border: 2px solid #000000;
+}
+
+#board #direction {
+	padding: 3px 5px;
+	margin: 0px 3px;
+	border: 1px solid #aeaeae;
+	border-radius: 3px;
 }

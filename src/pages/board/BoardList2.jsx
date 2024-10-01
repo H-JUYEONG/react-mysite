@@ -1,5 +1,5 @@
 //import 라이브러리
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ const BoardList2 = () => {
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
     const [boardList, setBoardList] = useState([]);
     const [keyword, setKeyword] = useState('');
-    const [crtpage, setCrtpage] = useState();
+    const [crtpage, setCrtpage] = useState('');
     const [prev, setPrev] = useState('');
     const [startPageBtnNo, setStartPageBtnNo] = useState('');
     const [endPageBtnNo, setEndPageBtnNo] = useState('');
@@ -25,7 +25,7 @@ const BoardList2 = () => {
     /*---일반 변수--------------------------------*/
   
     /*---일반 메소드 -----------------------------*/
-    const getBoardList = useCallback(() => {
+    const getBoardList = () => {
         axios({
             method: 'get',
             url: `${process.env.REACT_APP_API_URL}/api/boards2/list`,
@@ -40,7 +40,7 @@ const BoardList2 = () => {
         }).catch(error => {
             console.log(error);
         });
-    }, [keyword, crtpage]);
+    };
 
     /*---훅(useEffect)+이벤트(handle)메소드-------*/
         // 마운트 되었을때
@@ -74,8 +74,8 @@ const BoardList2 = () => {
 		
 			responseType: 'json' //수신타입
 		}).then(response => {
-			console.log(response); //수신데이터
-			console.log(response.data);
+			//console.log(response); //수신데이터
+			//console.log(response.data);
 
 			if(response.data.result === 'success') {
 
@@ -98,19 +98,18 @@ const BoardList2 = () => {
 	};
 
     // 페이지 클릭
-    const handleCrtpage = (e) => {
-        setCrtpage(e.target.value);
-        console.log('숫자 선택');
-        console.log(e.target.value);
+    const handleCrtpage = (page) => {
+        setCrtpage(page);
+        console.log(`page 선택한 페이지:${page}`);
+        console.log(`crtpage 상태변수:${crtpage}`);
     }
 
     // 페이징 숫자 반복
     const arrLoop = () => {
         const newArray = [];
         for(let i = startPageBtnNo; i <= endPageBtnNo; i++) {
-             newArray.push(<button id="btn_page" key={i} value={i} onClick={handleCrtpage}>{i}</button>);
+            newArray.push(<Link id="btn_page" key={i} to={`/boardlist2?crtpage=${i}&keyword=${keyword}`} rel="noreferrer noopener" onClick={() => handleCrtpage(i)}>{i}</Link>);
         }
-        //console.log(newArray);
         return newArray;
     }
     
@@ -176,20 +175,9 @@ const BoardList2 = () => {
                 
                             <div id="paging">
                                 <ul> 
-                                    {prev ? (<li><Link to={`/boardlist2?crtpage=${startPageBtnNo-1}&keyword=${keyword}`} rel="noreferrer noopener">◀</Link></li>) : null}
+                                    {prev ? (<li><Link id="direction" to={`/boardlist2?crtpage=${startPageBtnNo-1}&keyword=${keyword}`} rel="noreferrer noopener">◀</Link></li>) : null}
                                     {arrLoop()}
-                                    
-                                    {/* <li><Link to="#" rel="noreferrer noopener">1</Link></li>
-                                    <li><Link to={`/boardlist2?crtpage=${crtpage}&keyword=${keyword}`} rel="noreferrer noopener">{crtpage}</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">2</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">4</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">5</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">6</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">7</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">8</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">9</Link></li>
-                                    <li><Link to="#" rel="noreferrer noopener">10</Link></li> */}
-                                    {next ? (<li><Link to={`/boardlist2?crtpage=${endPageBtnNo+1}&keyword=${keyword}`} rel="noreferrer noopener">▶</Link></li>) : null}
+                                    {next ? (<li><Link id="direction" to={`/boardlist2?crtpage=${endPageBtnNo+1}&keyword=${keyword}`} rel="noreferrer noopener">▶</Link></li>) : null}
                                 </ul>
                                 <div className="clear"></div>
                             </div>
