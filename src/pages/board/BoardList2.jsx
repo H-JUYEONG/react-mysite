@@ -50,7 +50,7 @@ const BoardList2 = () => {
 		// 서버에서 데이터 가져오기 그리기
 		getBoardList();
 
-	}, []);
+	}, [crtpage]);
 
     // 검색 키워드 입력
     const handleKeyword = (e) => {
@@ -174,11 +174,11 @@ const BoardList2 = () => {
                             </table>
                 
                             <div id="paging">
+                                {prev ? (<Link id="direction1" to={`/boardlist2?crtpage=${startPageBtnNo-1}&keyword=${keyword}`} rel="noreferrer noopener">◀</Link>) : null}
                                 <ul> 
-                                    {prev ? (<li><Link id="direction" to={`/boardlist2?crtpage=${startPageBtnNo-1}&keyword=${keyword}`} rel="noreferrer noopener">◀</Link></li>) : null}
                                     {arrLoop()}
-                                    {next ? (<li><Link id="direction" to={`/boardlist2?crtpage=${endPageBtnNo+1}&keyword=${keyword}`} rel="noreferrer noopener">▶</Link></li>) : null}
                                 </ul>
+                                {next ? (<Link id="direction2" to={`/boardlist2?crtpage=${endPageBtnNo+1}&keyword=${keyword}`} rel="noreferrer noopener">▶</Link>) : null}
                                 <div className="clear"></div>
                             </div>
                             

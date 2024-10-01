@@ -21,6 +21,10 @@
 }
 
 /* 게시판 table */
+#board #list table {
+	margin-bottom: 30px;
+}
+
 #board #list table>thead>tr {
     border-top: 2px solid #808080; 
     border-bottom: 2px solid #808080;
@@ -271,7 +275,7 @@
 	border: 2px solid #000000;
 }
 
-#board #direction {
+#board #direction1, #direction2{
 	padding: 3px 5px;
 	margin: 0px 3px;
 	border: 1px solid #aeaeae;
