@@ -88,8 +88,8 @@ const BoardList = () => {
                 <div id="aside">
                     <h2>게시판</h2>
                     <ul>
-                        <li><Link to="#" rel="noreferrer noopener">일반게시판</Link></li>
-                        <li><Link to="#" rel="noreferrer noopener">댓글게시판</Link></li>
+                        <li><Link to="/boardlist" rel="noreferrer noopener">일반게시판</Link></li>
+                        <li><Link to="/boardlist2" rel="noreferrer noopener">댓글게시판</Link></li>
                     </ul>
                 </div>
                 {/* <!-- //aside --> */}

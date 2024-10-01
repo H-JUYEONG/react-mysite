@@ -108,7 +108,7 @@ const BoardList2 = () => {
     const arrLoop = () => {
         const newArray = [];
         for(let i = startPageBtnNo; i <= endPageBtnNo; i++) {
-             newArray.push(<button key={i} value={i} onClick={handleCrtpage}>{i}</button>);
+             newArray.push(<button id="btn_page" key={i} value={i} onClick={handleCrtpage}>{i}</button>);
         }
         //console.log(newArray);
         return newArray;
@@ -125,8 +125,8 @@ const BoardList2 = () => {
                 <div id="aside">
                     <h2>게시판</h2>
                     <ul>
-                        <li><Link to="#" rel="noreferrer noopener">일반게시판</Link></li>
-                        <li><Link to="#" rel="noreferrer noopener">댓글게시판</Link></li>
+                        <li><Link to="/boardlist" rel="noreferrer noopener">일반게시판</Link></li>
+                        <li><Link to="/boardlist2" rel="noreferrer noopener">댓글게시판</Link></li>
                     </ul>
                 </div>
                 {/* <!-- //aside --> */}

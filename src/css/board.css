@@ -252,3 +252,9 @@
     background: none;
 	cursor: pointer;
 }
+
+/* 페이징 버튼 */
+#board #btn_page {
+	padding: 3px 3px;
+	margin: 0px 3px;
+}
