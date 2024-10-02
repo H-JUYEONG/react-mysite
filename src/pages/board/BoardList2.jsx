@@ -1,6 +1,6 @@
 //import 라이브러리
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 
 // import 컴포넌트
@@ -12,6 +12,10 @@ import Footer from '../include/Footer';
 const BoardList2 = () => {
 
     /*---라우터 관련-------------------------------*/
+    const [searchParams] = useSearchParams();
+    const p = searchParams.get('p'); // 페이지
+    const k = searchParams.get('k'); // 키워드
+
 
     /*---상태관리 변수들(값이 변화면 화면 랜더링 )---*/
     const [boardList, setBoardList] = useState([]);
@@ -26,10 +30,12 @@ const BoardList2 = () => {
   
     /*---일반 메소드 -----------------------------*/
     const getBoardList = () => {
+        const criteria = { crtpage: p, keyword: k };
+        console.log(criteria);
         axios({
             method: 'get',
             url: `${process.env.REACT_APP_API_URL}/api/boards2/list`,
-            params: { keyword: keyword, crtpage: crtpage },
+            params: criteria,
             responseType: 'json',
         }).then(response => {
             setBoardList(response.data.apiData.tboardList);
@@ -50,7 +56,7 @@ const BoardList2 = () => {
 		// 서버에서 데이터 가져오기 그리기
 		getBoardList();
 
-	}, [crtpage]);
+	}, []);
 
     // 검색 키워드 입력
     const handleKeyword = (e) => {
@@ -108,7 +114,7 @@ const BoardList2 = () => {
     const arrLoop = () => {
         const newArray = [];
         for(let i = startPageBtnNo; i <= endPageBtnNo; i++) {
-            newArray.push(<Link id="btn_page" key={i} to={`/boardlist2?crtpage=${i}&keyword=${keyword}`} rel="noreferrer noopener" onClick={() => handleCrtpage(i)}>{i}</Link>);
+            newArray.push(<Link id="btn_page" key={i} to={`/boardlist2?p=${i}&k=${keyword}`} rel="noreferrer noopener" onClick={() => handleCrtpage(i)}>{i}</Link>);
         }
         return newArray;
     }
@@ -174,11 +180,11 @@ const BoardList2 = () => {
                             </table>
                 
                             <div id="paging">
-                                {prev ? (<Link id="direction1" to={`/boardlist2?crtpage=${startPageBtnNo-1}&keyword=${keyword}`} rel="noreferrer noopener">◀</Link>) : null}
+                                {prev ? (<Link id="direction1" to={`/boardlist2?p=${startPageBtnNo-1}&k=${keyword}`} rel="noreferrer noopener">◀</Link>) : null}
                                 <ul> 
                                     {arrLoop()}
                                 </ul>
-                                {next ? (<Link id="direction2" to={`/boardlist2?crtpage=${endPageBtnNo+1}&keyword=${keyword}`} rel="noreferrer noopener">▶</Link>) : null}
+                                {next ? (<Link id="direction2" to={`/boardlist2?p=${endPageBtnNo+1}&k=${keyword}`} rel="noreferrer noopener">▶</Link>) : null}
                                 <div className="clear"></div>
                             </div>
                             
