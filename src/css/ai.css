@@ -1,0 +1,44 @@
+#ai #chat-box {
+    background-color: #c6c6c6;
+    height: 400px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#ai #txt-question {
+    width: 98%;
+    height: 30px;
+    padding: 5px;
+    font-size: 15px;
+}
+
+#ai #btn-sendMsg {
+    width: 300px;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#ai #chat-box .user-msg-box {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+#ai #chat-box .user-msg {
+    float: right;
+    padding: 10px;
+    font-size: 13px;
+    background-color: #d7f8a8;
+}
+
+#ai #chat-box .bot-msg-box {
+    text-align: left;
+     margin-bottom: 10px;
+}
+
+#ai #chat-box .bot-msg {
+    float: left;
+    padding: 10px;
+    font-size: 13px;
+    background-color: #fff;
+}

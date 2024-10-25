@@ -28,6 +28,9 @@ import Form from './pages/attach/Form';
 import Result from './pages/attach/Result';
 import Form2 from './pages/attach/Form2';
 
+// ai
+import Chat from './pages/ai/Chat';
+
 // css 전체 공통 적용
 import './css/mysite.css';
 
@@ -59,6 +62,8 @@ function App() {
           <Route path='/form' element={<Form />} />
           <Route path='/result' element={<Result />} />
           <Route path='/form2' element={<Form2 />} />
+
+          <Route path='/chat' element={<Chat />} />
           
         </Routes>
       </BrowserRouter>
